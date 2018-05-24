@@ -57,29 +57,40 @@ Quick Atack - SEMPRE VAI PRIMEIRO (POWER: 40) - FÍSICO
 Blizzard (POWER: 120) - SPECIAL
 
 
-//moves
+	//moves ---- devem ser const para que possam ser usados no switch
 	
 	//charizard 
 		
-	int flamethrower = 1;
-	int fire_Blast = 2;
-	int fly = 3;
-	int earthquake = 4;
+	const int flamethrower = 1; //special
+	const int fire_blast = 2; //s
+	const int fly = 3; //fisico
+	const int earthquake = 4; //f
 	
 	//pikachu
 	
-	int quick_attack = 5;
-	int thunderbolt = 6;
-	int thunder = 7;
-	int skull_bash = 8;
+	const int quick_attack = 5; //f
+	const int thunderbolt = 6; //s
+	const int thunder = 7; //s
+	const int skull_bash = 8; //f
 	
 	//dragonite
 	
-	int ice_beam = 9;
+	const int ice_beam = 9; //s
 	
 	//vaporeon
 	
-	int hydro_pump = 10;
-	int aurora_beam = 11;
-	int quick_atack = 12;
-	int blizzard = 13;
+	const int hydro_pump = 10; //s
+	const int aurora_beam = 11; //s
+	const int blizzard = 12; //s
+	
+	
+	
+	
+	
+//dano = (((((2*100)/5) + 2) * power_move * (fez_atk->sp_atk/rec_atk->sp_def))/50)+2;
+		
+//dano = ((42 * power_move * (fez_atk->sp_atk/rec_atk->sp_def)) / 50) + 2;
+
+//dano = ((42 * power_move * (fez_atk->atk/rec_atk->def)) / 50) + 2;
+		
+		
