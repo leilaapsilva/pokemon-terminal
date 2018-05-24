@@ -92,5 +92,20 @@ Blizzard (POWER: 120) - SPECIAL
 //dano = ((42 * power_move * (fez_atk->sp_atk/rec_atk->sp_def)) / 50) + 2;
 
 //dano = ((42 * power_move * (fez_atk->atk/rec_atk->def)) / 50) + 2;
+
+fluxo
+
+> Menus
+> Batalha começa
+> CPU lança um pokémon aleatório
+> Pergunta qual pokémon tu quer usar do teu time
+> Teu Pokémon entra
+> Escolhe o ataque
+> Compara velocidades
+> Mais rápido ataca primeiro
+> Se matar, o que perdeu troca, se não, tu recebe o ataque
+> Se morrer, tu tem que trocar, mas quem atacou permanece
+> Pokémon que perde não pode mais ser usado, como se fosse um "destroy / remove"
+> Ganha quem eliminar os pokémons do outro
 		
 		
