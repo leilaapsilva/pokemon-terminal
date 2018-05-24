@@ -55,3 +55,31 @@ Hydro Pump (POWER: 120) - SPECIAL
 Aurora Beam (POWER: 65) - SPECIAL
 Quick Atack - SEMPRE VAI PRIMEIRO (POWER: 40) - FÍSICO
 Blizzard (POWER: 120) - SPECIAL
+
+
+//moves
+	
+	//charizard 
+		
+	int flamethrower = 1;
+	int fire_Blast = 2;
+	int fly = 3;
+	int earthquake = 4;
+	
+	//pikachu
+	
+	int quick_attack = 5;
+	int thunderbolt = 6;
+	int thunder = 7;
+	int skull_bash = 8;
+	
+	//dragonite
+	
+	int ice_beam = 9;
+	
+	//vaporeon
+	
+	int hydro_pump = 10;
+	int aurora_beam = 11;
+	int quick_atack = 12;
+	int blizzard = 13;
