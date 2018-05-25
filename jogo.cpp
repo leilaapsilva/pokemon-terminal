@@ -160,6 +160,26 @@ void ImprimeMoves(TipoPokemon *poke){
 	}
 }
 
+void Ataque(TipoPokemon *ataca, TipoPokemon *defende, TipoMove move){
+
+	float dano;
+	if(move.tipo == 'e'){ //ataque especial atinge defesa especial
+		cout << "ataque especial" << endl;
+		dano = ((ataca->sp_atk / defende->sp_def) * move.power)/2;
+	}
+	else if(move.tipo == 'f'){ //ataque fisico atinge defesa normal
+		dano = ((ataca->atk / defende->def) * move.power)/2;	
+	}
+
+	//trunca o dano para ficar inteiro
+	dano = floor(dano);
+	
+	//decrementa a hp do pokemon que recebeu o ataque
+	defende->hp -= dano; 
+
+	cout << ataca->nome << " atacou " << defende->nome << " usando " << move.nome << " e causou " << dano << " de dano";
+}
+
 int main(int argc, char** argv)
 {
 	TipoMove flamethrower; 
@@ -203,7 +223,42 @@ int main(int argc, char** argv)
 
 	InsereLista(&player2, pikachu);
 
+	//no começo do jogo, pega os primeiros da lista de cada jogador	
 	
+	TipoPokemon pokemon1 = PrimeiroPokemon(&player1);
+	TipoPokemon pokemon2 = PrimeiroPokemon(&player2);
+	
+	//determina qual joga primeiro
+	if(pokemon1.speed > pokemon2.speed){
+		//pokemon1 comeca
+		cout << endl;
+		cout << "speed do pokemon 1 maior, ele comeca" << endl;
+		
+		
+		
+	} else
+	{
+		//pokemon2 comeca
+		cout << endl;
+		cout << "speed do pokemon 2 maior, ele comeca" << endl;
+	}
+	
+	cout << "escolha o move: " << endl;
+	cout << "(1) flamethrower" << endl;
+	cout << "(2) fire blast" << endl;
+	cout << "(3) fly " << endl;
+	cout << "(4) earthquake" << endl;
+	
+	//TO DO - verificar se o move escolhido pertence ao pokemon
+	
+	
+	int mov;
+	
+	cin >> mov;
+	
+	Ataque(&charizard, &pikachu, thunder);	
+	
+	ImprimePokemon(&pikachu);
 	
 	return 0;
 }
