@@ -5,11 +5,9 @@
 #include <stdio.h>
 #include <string>
 
-
 using namespace std;
 
 typedef int TipoChave;
-
 
 typedef struct TipoMove{
 	string nome; 
@@ -25,8 +23,8 @@ typedef struct TipoPokemon{
 	float def; //defesa
 	float hp; //vida
 	float speed; //velocidade (o maior ataca antes)
-	float sp_atk;
-	float sp_def;
+	float sp_atk; //ataque especial
+	float sp_def; //defesa especial
 	TipoMove moves[3]; //movimentos de ataque possiveis
 } TipoPokemon;
 
@@ -42,7 +40,7 @@ typedef struct TipoLista {
 } TipoLista;
 
 
-////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
 
 void InicializaMove(TipoMove *mov, string n, int id, char t, float pw){
 	mov->nome = n;
@@ -53,44 +51,6 @@ void InicializaMove(TipoMove *mov, string n, int id, char t, float pw){
 	cout << "move " << mov->nome << " inicializado " << endl;
 	
 }
-/*
-	const TipoMove flamethrower; 
-	const TipoMove fire_blast; 
-	const TipoMove fly; 
-	const TipoMove earthquake;
-	
-	InicializaMove(&flamethrower, "Flamethrower", 1, 'e', 95); 
-
-*/
-	//moves ---- devem ser const para que possam ser usados no switch
-	
-	//charizard 
-		
-	//const int flamethrower = 1; //special
-	//const int fire_blast = 2; //s
-	//const int fly = 3; //fisico
-	//const int earthquake = 4; //f
-	
-	//pikachu
-	
-	/*
-	const int quick_attack = 5; //f
-	const int thunderbolt = 6; //s
-	const int thunder = 7; //s
-	const int skull_bash = 8; //f
-	
-	//dragonite
-	
-	const int ice_beam = 9; //s
-	
-	//vaporeon
-	
-	const int hydro_pump = 10; //s
-	const int aurora_beam = 11; //s
-	const int blizzard = 12; //s
-
-*/
-
 
 void InicializaLista(TipoLista *L) {
 	(*L).Primeiro = NULL;
@@ -157,14 +117,6 @@ TipoPokemon PrimeiroPokemon(TipoLista *L){
 	return L->Primeiro->pokemon; 
 }
 
-	/* Move precisa ter
-	- nome
-	- id
-	- tipo
-	- power
-	*/
-	
-
 void InicializaPokemon(TipoPokemon *poke, int id, string nome, float ataque, float defesa, float vida, float velocidade, float spAtk, float spDef, TipoMove mov0, TipoMove mov1, TipoMove mov2, TipoMove mov3){			
 								
 				poke->id = id;
@@ -207,110 +159,6 @@ void ImprimeMoves(TipoPokemon *poke){
 		cout << "(" << i+1 << ") ";
 	}
 }
-
-/*
-void Ataque(TipoPokemon *fez_atk, TipoPokemon *rec_atk, int move){
-	
-	float power_move;
-	int type_move; //0 para fisico e 1 para especial
-	float dano;
-	string string_move;
-	
-	switch(move){
-		case flamethrower: 
-			power_move = 95;
-			type_move = 1; //especial
-			string_move = "flamethrower";
-			break;
-			
-        case fire_blast: 
-        	power_move = 120;
-        	type_move = 1;
-        	string_move = "fire blast";
-			break;
-        	
-	    case fly:
-        	power_move = 70;
-        	type_move = 0;
-        	string_move = "fly";
-			break;
-    	
-		case earthquake:
-        	power_move = 100;
-        	type_move = 0;
-        	string_move = "earthquake";
-			break;
-        	
-		case quick_attack:
-			power_move = 40;
-        	type_move = 0;
-        	string_move = "quick_attack";
-			break;
-        	
-		case thunderbolt:
-			power_move = 95;
-        	type_move = 1;
-        	string_move = "thunderbolt";
-			break;
-			
-		case thunder:
-			power_move = 120;
-        	type_move = 1;
-        	string_move = "thunder";
-			break;
-			
-		case skull_bash:
-			power_move = 100;
-        	type_move = 0;
-        	string_move = "skull bash";
-			break;
-			
-		case ice_beam:
-			power_move = 95;
-        	type_move = 1;
-        	string_move = "ice beam";
-			break;
-			
-		case hydro_pump:
-			power_move = 120;
-        	type_move = 1;
-        	string_move = "hydro pump";
-			break;
-			
-		case aurora_beam:
-			power_move = 65;
-        	type_move = 1;
-        	string_move = "aurora beam";
-			break;
-			
-		case blizzard:    	
-  			power_move = 120;
-        	type_move = 1;
-        	string_move = "blizzard";
-			break;
-	}
-	
-	if(type_move == 1){ //ataques especiais atingem defesa especial
-		dano = ((fez_atk->sp_atk / rec_atk->sp_def) * power_move)/2; 
-		
-	
-		
-	} else{ //ataques fisicos atingem a defesa normal
-	
-		dano = ((fez_atk->atk / rec_atk->def) * power_move)/2;
-
-	}
-	
-	//trunca o dano para ficar inteiro
-	dano = floor(dano);
-	
-	rec_atk->hp = rec_atk->hp - dano;
-	
-	cout << " *nome pokemon* atacou" << " *nome pokemon* " << " usando " << string_move << " e causou " << dano << " de dano";
-	
-}
-
-*/
 
 int main(int argc, char** argv)
 {
@@ -394,11 +242,6 @@ int main(int argc, char** argv)
 		cout << endl;
 		cout << "speed do pokemon 2 maior, ele comeca" << endl;
 	}
-	
-	
-
-	
-	
 	
 	cout << "escolha o move: " << endl;
 	cout << "(1) flamethrower" << endl;
