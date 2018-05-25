@@ -9,6 +9,8 @@ using namespace std;
 
 typedef int TipoChave;
 
+#define NUM_MOVES 4
+
 typedef struct TipoMove{
 	string nome; 
 	int id;
@@ -25,7 +27,7 @@ typedef struct TipoPokemon{
 	float speed; //velocidade (o maior ataca antes)
 	float sp_atk; //ataque especial
 	float sp_def; //defesa especial
-	TipoMove moves[3]; //movimentos de ataque possiveis
+	TipoMove moves[NUM_MOVES]; //movimentos de ataque possiveis
 } TipoPokemon;
 
 typedef struct TipoNo *TipoApontador;
@@ -39,7 +41,6 @@ typedef struct TipoLista {
 	TipoApontador Primeiro, Ultimo;
 } TipoLista;
 
-
 ////////////////////////////////////////////////////////////////////////
 
 void InicializaMove(TipoMove *mov, string n, int id, char t, float pw){
@@ -49,7 +50,6 @@ void InicializaMove(TipoMove *mov, string n, int id, char t, float pw){
 	mov->power = pw;
 	
 	cout << "move " << mov->nome << " inicializado " << endl;
-	
 }
 
 void InicializaLista(TipoLista *L) {
@@ -130,8 +130,8 @@ void InicializaPokemon(TipoPokemon *poke, int id, string nome, float ataque, flo
 				poke->moves[0]= mov0;
 				poke->moves[1] = mov1;
 				poke->moves[2] = mov2;
-				poke->moves[3] = mov3;			 															
-
+				poke->moves[3] = mov3;		
+																			
 }
 
 void ImprimePokemon(TipoPokemon *poke){
@@ -184,83 +184,22 @@ int main(int argc, char** argv)
 		
 	TipoPokemon charizard;
 	TipoPokemon pikachu;
-	
-	cout << "teste" << endl;
-	
-	cout <<"teste" << endl;
-	
 		
 	InicializaPokemon(&charizard, 2, "Charizard", 293, 280, 360, 328, 348, 295, flamethrower, fire_blast, fly, earthquake);
 	
 	ImprimePokemon(&charizard);
-										
-	InicializaPokemon(&pikachu, 1, "pikachu", 229, 196, 274, 306, 218, 218, quick_attack, thunderbolt, thunder, skull_bash);
 	
-	ImprimePokemon(&pikachu);
-
-	
-	
-	/*
-	//listas de pokemons dos jogadores
-	TipoLista player1, player2;
+	TipoLista player1;
 	InicializaLista(&player1);
-	InicializaLista(&player2);
 	
-	cout << "player 1 <- pikachu" << endl;
-	cout << "player 2 <- charizard" << endl;
-	
-	InsereLista(&player1, pikachu);
-	InsereLista(&player2, charizard);
+	cout << "player 1 <- charizard" << endl;
 
+	InsereLista(&player1, charizard);
 	
-	
-	
-	cout<<"pikachu:"<<endl;
-	
-	ImprimePokemon(&pikachu);
-	
-	cout<<"charizard:"<< endl;
-	
-	ImprimePokemon(&charizard);
-	
-	//no começo do jogo, pega os primeiros da lista de cada jogador	
-	
-	TipoPokemon pokemon1 = PrimeiroPokemon(&player1);
-	TipoPokemon pokemon2 = PrimeiroPokemon(&player2);
-	
-	//determina qual joga primeiro
-	if(pokemon1.speed > pokemon2.speed){
-		//pokemon1 comeca
-		cout << endl;
-		cout << "speed do pokemon 1 maior, ele comeca" << endl;
-		
-		
-		
-	} else
-	{
-		//pokemon2 comeca
-		cout << endl;
-		cout << "speed do pokemon 2 maior, ele comeca" << endl;
-	}
-	
-	cout << "escolha o move: " << endl;
-	cout << "(1) flamethrower" << endl;
-	cout << "(2) fire blast" << endl;
-	cout << "(3) fly " << endl;
-	cout << "(4) earthquake" << endl;
-	
-	//TO DO - verificar se o move escolhido pertence ao pokemon
-	
-	
-	int mov;
-	
-	cin >> mov;
-	
-	Ataque(&charizard, &pikachu, mov);	
+	InicializaPokemon(&pikachu, 1, "Pikachu", 229, 196, 274, 306, 218, 218, quick_attack, thunderbolt, thunder, skull_bash);
 	
 	ImprimePokemon(&pikachu);
-	
-	*/
+
 	
 	return 0;
 }
