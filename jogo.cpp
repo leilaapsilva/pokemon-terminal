@@ -189,8 +189,9 @@ int main(int argc, char** argv)
 	
 	ImprimePokemon(&charizard);
 	
-	TipoLista player1;
+	TipoLista player1, player2;
 	InicializaLista(&player1);
+	InicializaLista(&player2);
 	
 	cout << "player 1 <- charizard" << endl;
 
@@ -200,6 +201,9 @@ int main(int argc, char** argv)
 	
 	ImprimePokemon(&pikachu);
 
+	InsereLista(&player2, pikachu);
+
+	
 	
 	return 0;
 }
