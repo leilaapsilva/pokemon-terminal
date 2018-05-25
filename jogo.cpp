@@ -154,30 +154,49 @@ void ImprimePokemon(TipoPokemon *poke){
 	cout << "****************************" << endl; 
 } 
 
-void ImprimeMoves(TipoPokemon *poke){
-	for(int i = 0; i < 4; i++){
-		cout << "(" << i+1 << ") ";
-	}
-}
+void Ataque(TipoPokemon *ataca, TipoPokemon *defende, TipoMove *move){
 
-void Ataque(TipoPokemon *ataca, TipoPokemon *defende, TipoMove move){
-
+	cout << endl;
 	float dano;
-	if(move.tipo == 'e'){ //ataque especial atinge defesa especial
+	
+	cout <<"Tipo do move usado: " << move->tipo << endl;
+
+	if(move->tipo == 'e'){ //ataque especial atinge defesa especial
 		cout << "ataque especial" << endl;
-		dano = ((ataca->sp_atk / defende->sp_def) * move.power)/2;
+		dano = ((ataca->sp_atk / defende->sp_def) * move->power)/2;
 	}
-	else if(move.tipo == 'f'){ //ataque fisico atinge defesa normal
-		dano = ((ataca->atk / defende->def) * move.power)/2;	
+	else if(move->tipo == 'f'){ //ataque fisico atinge defesa normal
+		cout << "ataque fisico" << endl;
+
+		dano = ((ataca->atk / defende->def) * move->power)/2;	
+	}
+	else{
+		//tipo invalido
+		cout << "tipo invalido" << endl;
 	}
 
 	//trunca o dano para ficar inteiro
 	dano = floor(dano);
 	
-	//decrementa a hp do pokemon que recebeu o ataque
-	defende->hp -= dano; 
+	cout << "dano: " << dano << endl;
 
-	cout << ataca->nome << " atacou " << defende->nome << " usando " << move.nome << " e causou " << dano << " de dano";
+	//decrementa a hp do pokemon que recebeu o ataque
+	defende->hp = defende->hp - dano; 
+
+	cout << ataca->nome << " atacou " << defende->nome << " usando " << move->nome << " e causou " << dano << " de dano";
+}
+
+//metodo para escolha do move a ser jogado
+void ImprimeMoves(TipoPokemon *pokemon, TipoMove *escolhido){	
+	
+	int n_escolhido = 0;
+	cout << "Escolha o move: " << endl;
+	for(int i = 0; i < NUM_MOVES; i++){
+		cout << "(" << i+1 << ") " << pokemon->moves[i].nome << endl;
+	}
+	cin >> n_escolhido;
+
+	*escolhido = pokemon->moves[n_escolhido-1];
 }
 
 int main(int argc, char** argv)
@@ -201,6 +220,9 @@ int main(int argc, char** argv)
 	InicializaMove(&thunderbolt, "Thunderbolt", 6, 'e', 95);
 	InicializaMove(&thunder, "Thunder", 7, 'e', 120);
 	InicializaMove(&skull_bash, "Skull Bash", 8, 'f', 100);
+
+	cout << "tipo move thunder: " << thunder.tipo << endl; 
+
 		
 	TipoPokemon charizard;
 	TipoPokemon pikachu;
@@ -234,29 +256,28 @@ int main(int argc, char** argv)
 		cout << endl;
 		cout << "speed do pokemon 1 maior, ele comeca" << endl;
 		
-		
-		
 	} else
 	{
 		//pokemon2 comeca
 		cout << endl;
 		cout << "speed do pokemon 2 maior, ele comeca" << endl;
 	}
-	
+	/*
 	cout << "escolha o move: " << endl;
 	cout << "(1) flamethrower" << endl;
 	cout << "(2) fire blast" << endl;
 	cout << "(3) fly " << endl;
 	cout << "(4) earthquake" << endl;
 	
+	*/
+
 	//TO DO - verificar se o move escolhido pertence ao pokemon
 	
+	TipoMove escolhido;	
+
+	ImprimeMoves(&charizard, &escolhido);
 	
-	int mov;
-	
-	cin >> mov;
-	
-	Ataque(&charizard, &pikachu, thunder);	
+	Ataque(&charizard, &pikachu, &escolhido);	
 	
 	ImprimePokemon(&pikachu);
 	
