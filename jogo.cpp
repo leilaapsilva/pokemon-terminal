@@ -49,7 +49,7 @@ void InicializaMove(TipoMove *mov, string n, int id, char t, float pw){
 	mov->tipo = t;
 	mov->power = pw;
 	
-	cout << "move " << mov->nome << " inicializado " << endl;
+	//cout << "move " << mov->nome << " inicializado " << endl;
 }
 
 void InicializaLista(TipoLista *L) {
@@ -139,18 +139,18 @@ void ImprimePokemon(TipoPokemon *poke){
 	cout << endl;
 	cout << "****************************" << endl;
 	cout << "*  NOME:	" <<  poke->nome  << "	           *" << endl;
-	cout << "*  ID: " << poke->id << "                   *" << endl;
+//	cout << "*  ID: " << poke->id << "                   *" << endl;
 //	cout << "*  ATK: " << poke->atk << "	           *" << endl;	
 //	cout << "*  DEF: " << poke->def << "	           *" << endl;
 	cout << "*  HP: " << poke->hp << "	           *" << endl;
 	cout << "*  SPEED: " << poke->speed << "	           *" << endl;
 //	cout << "*  SP.ATK: " << poke->sp_atk << "	           *" << endl;
 //	cout << "*  SP.DEF:	" << poke->sp_def << " 	   *" << endl;
-	cout << "*  MOVES: " << "                 *" << endl;
-	cout << "*  "<< poke->moves->nome << "            *" << endl;
-	cout << "*  "<< poke->moves[1].nome << "              *" << endl;
-	cout << "*  "<< poke->moves[2].nome << "                     *" << endl;
-	cout << "*  "<< poke->moves[3].nome << "              *" << endl;
+//	cout << "*  MOVES: " << "                 *" << endl;
+//	cout << "*  "<< poke->moves->nome << "            *" << endl;
+//	cout << "*  "<< poke->moves[1].nome << "              *" << endl;
+//	cout << "*  "<< poke->moves[2].nome << "                     *" << endl;
+//	cout << "*  "<< poke->moves[3].nome << "              *" << endl;
 	cout << "****************************" << endl; 
 } 
 
@@ -199,8 +199,27 @@ void ImprimeMoves(TipoPokemon *pokemon, TipoMove *escolhido){
 	*escolhido = pokemon->moves[n_escolhido-1];
 }
 
+TipoPokemon comeca(TipoPokemon pokemon1, TipoPokemon pokemon2){
+	//determina qual joga primeiro
+	if(pokemon1.speed > pokemon2.speed){
+		//pokemon1 comeca
+		cout << endl;
+		cout << "speed do " << pokemon1.nome <<" maior, ele comeca" << endl;
+		return pokemon1;
+		
+	} else
+	{
+		//pokemon2 comeca
+		cout << endl;
+		cout << "speed do " << pokemon2.nome <<" maior, ele comeca" << endl;
+		return pokemon2;
+	}
+}
+
 int main(int argc, char** argv)
 {
+
+	cout << "Inicializando moves :) " << endl << endl; 
 	TipoMove flamethrower; 
 	TipoMove fire_blast; 
 	TipoMove fly; 
@@ -220,11 +239,10 @@ int main(int argc, char** argv)
 	InicializaMove(&thunderbolt, "Thunderbolt", 6, 'e', 95);
 	InicializaMove(&thunder, "Thunder", 7, 'e', 120);
 	InicializaMove(&skull_bash, "Skull Bash", 8, 'f', 100);
-
-	cout << "tipo move thunder: " << thunder.tipo << endl; 
-
-		
-	TipoPokemon charizard;
+	
+	cout << "Inicializando pokemons :) " << endl << endl; 	
+	
+TipoPokemon charizard;
 	TipoPokemon pikachu;
 		
 	InicializaPokemon(&charizard, 2, "Charizard", 293, 280, 360, 328, 348, 295, flamethrower, fire_blast, fly, earthquake);
@@ -235,8 +253,6 @@ int main(int argc, char** argv)
 	InicializaLista(&player1);
 	InicializaLista(&player2);
 	
-	cout << "player 1 <- charizard" << endl;
-
 	InsereLista(&player1, charizard);
 	
 	InicializaPokemon(&pikachu, 1, "Pikachu", 229, 196, 274, 306, 218, 218, quick_attack, thunderbolt, thunder, skull_bash);
@@ -250,6 +266,10 @@ int main(int argc, char** argv)
 	TipoPokemon pokemon1 = PrimeiroPokemon(&player1);
 	TipoPokemon pokemon2 = PrimeiroPokemon(&player2);
 	
+	TipoPokemon primeiro = comeca(pokemon1, pokemon2);
+
+	/*
+
 	//determina qual joga primeiro
 	if(pokemon1.speed > pokemon2.speed){
 		//pokemon1 comeca
@@ -262,20 +282,12 @@ int main(int argc, char** argv)
 		cout << endl;
 		cout << "speed do pokemon 2 maior, ele comeca" << endl;
 	}
-	/*
-	cout << "escolha o move: " << endl;
-	cout << "(1) flamethrower" << endl;
-	cout << "(2) fire blast" << endl;
-	cout << "(3) fly " << endl;
-	cout << "(4) earthquake" << endl;
-	
-	*/
 
-	//TO DO - verificar se o move escolhido pertence ao pokemon
+	*/
 	
 	TipoMove escolhido;	
 
-	ImprimeMoves(&charizard, &escolhido);
+	ImprimeMoves(&primeiro, &escolhido);
 	
 	Ataque(&charizard, &pikachu, &escolhido);	
 	
