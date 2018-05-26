@@ -116,4 +116,41 @@ void RemoveLista(TipoLista *L, TipoChave C) {
 	else
 		printf("Remocao deu ruim\n");
 }
+
+int static RemoveListaPosicao(TipoLista *L, TipoApontador P) {
+
+	if (P == NAO_ENCONTRADO)
+		return POSICAOINVALIDA;
+
+	// unico elemento na lista
+	if (P == L->Primeiro && L->Primeiro == L->Ultimo) {
+		L->Primeiro = NULL;
+		L->Ultimo = NULL;
+		free(P);
+		return SEMERRO;
+	}
+	
+	// Remove do inicio
+	if (P == L->Primeiro) {
+		L->Primeiro = L->Primeiro->prox;
+		free(P);
+		return SEMERRO;
+	}
+	
+	// Remove no meio da lista
+	TipoApontador aux = L->Primeiro;
+	while(aux->prox != NULL && aux->prox != P) {
+		aux = aux->prox;
+	}
+	
+	aux->prox = P->prox;
+	// se o removido estava no fim
+	if (aux->prox == NULL)
+		L->Ultimo = aux;
+	
+	free(P);
+	
+	return SEMERRO;
+	
+}
 		
