@@ -108,4 +108,12 @@ fluxo
 > Pokémon que perde não pode mais ser usado, como se fosse um "destroy / remove"
 > Ganha quem eliminar os pokémons do outro
 		
+void RemoveLista(TipoLista *L, TipoChave C) {	
+	TipoApontador P = PesquisaLista(L, C);	
+	int r = RemoveListaPosicao(L, P);
+	if (r != POSICAOINVALIDA)
+		printf("Removeu elemento\n");
+	else
+		printf("Remocao deu ruim\n");
+}
 		
