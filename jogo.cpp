@@ -117,7 +117,7 @@ TipoPokemon PrimeiroPokemon(TipoLista *L){
 	return L->Primeiro->pokemon; 
 }
 
-void InicializaPokemon(TipoPokemon *poke, int id, string nome, float ataque, float defesa, float vida, float velocidade, float spAtk, float spDef, TipoMove mov0, TipoMove mov1, TipoMove mov2, TipoMove mov3){			
+void InicializaPokemon(TipoPokemon *poke, int id, string nome, float vida, float ataque, float spAtk, float defesa, float spDef, float velocidade, TipoMove mov0, TipoMove mov1, TipoMove mov2, TipoMove mov3){		
 								
 				poke->id = id;
 				poke->nome = nome;
@@ -220,15 +220,7 @@ int main(int argc, char** argv)
 {
 
 	cout << "Inicializando moves :) " << endl << endl; 
-	TipoMove flamethrower; 
-	TipoMove fire_blast; 
-	TipoMove fly; 
-	TipoMove earthquake;
-	
-	TipoMove quick_attack;
-	TipoMove thunderbolt;
-	TipoMove thunder;
-	TipoMove skull_bash;
+	TipoMove flamethrower, fire_blast, fly, earthquake, quick_attack, thunderbolt, thunder, skull_bash, ice_beam, hydro_pump, aurora_beam, blizzard; 
 	
 	InicializaMove(&flamethrower, "Flamethrower", 1, 'e', 95); 
 	InicializaMove(&fire_blast, "Fire Blast", 2, 'e', 120);
@@ -240,32 +232,48 @@ int main(int argc, char** argv)
 	InicializaMove(&thunder, "Thunder", 7, 'e', 120);
 	InicializaMove(&skull_bash, "Skull Bash", 8, 'f', 100);
 	
+	InicializaMove(&ice_beam, "Ice Beam", 9, 'e', 95);
+	
+	InicializaMove(&hydro_pump, "Hydro Pump", 10, 'e', 120);
+	InicializaMove(&aurora_beam, "Aurora Beam", 11, 'e', 65);
+	InicializaMove(&blizzard, "Blizzard", 12, 'e', 120);
+
+
 	cout << "Inicializando pokemons :) " << endl << endl; 	
 	
-TipoPokemon charizard;
-	TipoPokemon pikachu;
+	TipoPokemon pikachu, charizard, dragonite, vaporeon;
+
 		
-	InicializaPokemon(&charizard, 2, "Charizard", 293, 280, 360, 328, 348, 295, flamethrower, fire_blast, fly, earthquake);
+	InicializaPokemon(&pikachu, 1, "Pikachu", 274, 229, 218, 196, 218, 306, quick_attack, thunderbolt, thunder, skull_bash);
+
+	InicializaPokemon(&charizard, 2, "Charizard", 360, 293, 348, 280, 295, 328, flamethrower, fire_blast, fly, earthquake);
+
+	InicializaPokemon(&dragonite, 3, "Dragonite", 386, 403, 328, 317, 328, 284, fly, earthquake, ice_beam, fire_blast);
+
+	InicializaPokemon(&vaporeon, 4, "Vaporeon", 464, 251, 350, 240, 317, 251, hydro_pump, aurora_beam, quick_attack, blizzard); 
 	
 	ImprimePokemon(&charizard);
-	
+	ImprimePokemon(&pikachu);
+
 	TipoLista player1, player2;
+
 	InicializaLista(&player1);
 	InicializaLista(&player2);
 	
-	InsereLista(&player1, charizard);
-	
-	InicializaPokemon(&pikachu, 1, "Pikachu", 229, 196, 274, 306, 218, 218, quick_attack, thunderbolt, thunder, skull_bash);
-	
-	ImprimePokemon(&pikachu);
+	InsereLista(&player1, dragonite);	
+	InsereLista(&player1, charizard);	
 
+	InsereLista(&player2, vaporeon);	
 	InsereLista(&player2, pikachu);
 
 	//no começo do jogo, pega os primeiros da lista de cada jogador	
 	
 	TipoPokemon pokemon1 = PrimeiroPokemon(&player1);
-	TipoPokemon pokemon2 = PrimeiroPokemon(&player2);
+	cout << "primeiro do player1: " << pokemon1.nome << endl;
 	
+	TipoPokemon pokemon2 = PrimeiroPokemon(&player2);
+	cout << "primeiro do player2: " << pokemon2.nome << endl;	
+
 	TipoPokemon primeiro = comeca(pokemon1, pokemon2);
 
 	/*
@@ -289,9 +297,10 @@ TipoPokemon charizard;
 
 	ImprimeMoves(&primeiro, &escolhido);
 	
-	Ataque(&charizard, &pikachu, &escolhido);	
-	
-	ImprimePokemon(&pikachu);
+	//Ataque(&charizard, &pikachu, &escolhido);	
+	Ataque(&pokemon1, &pokemon2, &escolhido);	
+
+	cout << endl;
 	
 	return 0;
 }
