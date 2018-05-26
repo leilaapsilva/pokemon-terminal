@@ -39,6 +39,7 @@ typedef struct TipoNo {
 
 typedef struct TipoLista {
 	TipoApontador Primeiro, Ultimo;
+	int player; //player 1 ou 2
 } TipoLista;
 
 ////////////////////////////////////////////////////////////////////////
@@ -52,10 +53,10 @@ void InicializaMove(TipoMove *mov, string n, int id, char t, float pw){
 	//cout << "move " << mov->nome << " inicializado " << endl;
 }
 
-void InicializaLista(TipoLista *L) {
+void InicializaLista(TipoLista *L, int player) {
 	(*L).Primeiro = NULL;
 	(*L).Ultimo = NULL;
-	printf("Criou a lista\n");
+	//printf("Criou a lista\n");
 }
 
 int ListaVazia(TipoLista *L) {
@@ -85,7 +86,7 @@ void InsereLista(TipoLista *L, TipoPokemon poke) {
 		L->Ultimo = P;
 	}
 
-	cout << "Pokemon inserido: " << poke.id << endl;
+	//cout << "Pokemon inserido: " << poke.id << endl;
 }
 
 TipoApontador PesquisaLista(TipoLista *L, TipoChave C) {
@@ -104,6 +105,71 @@ TipoApontador PesquisaLista(TipoLista *L, TipoChave C) {
 	
 	return NULL; 
 }
+
+int static RemoveListaPosicao(TipoLista *L, TipoApontador P) {
+
+	if (P->pokemon.id == -1)
+		return -1;
+
+	// unico elemento na lista
+	if (P == L->Primeiro && L->Primeiro == L->Ultimo) {
+		L->Primeiro = NULL;
+		L->Ultimo = NULL;
+		free(P);
+		return 0;
+	}
+	
+	// Remove do inicio
+	if (P == L->Primeiro) {
+		L->Primeiro = L->Primeiro->prox;
+		free(P);
+		return 0;
+	}
+	
+	// Remove no meio da lista
+	TipoApontador aux = L->Primeiro;
+	while(aux->prox != NULL && aux->prox != P) {
+		aux = aux->prox;
+	}
+	
+	aux->prox = P->prox;
+	// se o removido estava no fim
+	if (aux->prox == NULL)
+		L->Ultimo = aux;
+	
+	free(P);
+	
+	return 0;
+	
+}
+
+void RemoveLista(TipoLista *L, TipoChave C) {	
+	TipoApontador P = PesquisaLista(L, C);	
+	int r = RemoveListaPosicao(L, P);
+	if (r != -1)
+		printf("Removeu elemento\n");
+	else
+		printf("Remocao deu ruim\n");
+}
+
+void ImprimeLista(TipoLista *L) {
+	
+	TipoApontador P = L->Primeiro;
+
+	int i = 0;
+	while(P != NULL) {
+		if (P->prox != NULL){ //se nao for o ultimo, aponta para o proximo
+		cout << L->Primeiro->pokemon.nome << endl;
+		cout << L->Primeiro->prox->pokemon.nome << endl;
+		}else{ //se for o ultimo, apenas imprime
+					
+		}
+		P = P->prox;
+		i++;
+	}
+	
+}
+
 
 TipoPokemon PrimeiroPokemon(TipoLista *L){
 	TipoPokemon ash;
@@ -154,19 +220,20 @@ void ImprimePokemon(TipoPokemon *poke){
 	cout << "****************************" << endl; 
 } 
 
-void Ataque(TipoPokemon *ataca, TipoPokemon *defende, TipoMove *move){
+//retorna 0 caso nao elimine e 1 caso elimine
+int Ataque(TipoPokemon *ataca, TipoPokemon *defende, TipoMove *move){
 
 	cout << endl;
 	float dano;
 	
-	cout <<"Tipo do move usado: " << move->tipo << endl;
+	//cout <<"Tipo do move usado: " << move->tipo << endl;
 
 	if(move->tipo == 'e'){ //ataque especial atinge defesa especial
-		cout << "ataque especial" << endl;
+		//cout << "ataque especial" << endl;
 		dano = ((ataca->sp_atk / defende->sp_def) * move->power)/2;
 	}
 	else if(move->tipo == 'f'){ //ataque fisico atinge defesa normal
-		cout << "ataque fisico" << endl;
+		//cout << "ataque fisico" << endl;
 
 		dano = ((ataca->atk / defende->def) * move->power)/2;	
 	}
@@ -178,12 +245,22 @@ void Ataque(TipoPokemon *ataca, TipoPokemon *defende, TipoMove *move){
 	//trunca o dano para ficar inteiro
 	dano = floor(dano);
 	
-	cout << "dano: " << dano << endl;
+	//cout << "dano: " << dano << endl;
 
 	//decrementa a hp do pokemon que recebeu o ataque
 	defende->hp = defende->hp - dano; 
 
-	cout << ataca->nome << " atacou " << defende->nome << " usando " << move->nome << " e causou " << dano << " de dano";
+	cout << ataca->nome << " atacou " << defende->nome << " usando " << move->nome << " e causou " << dano << " de dano"<< endl;
+
+	cout << "hp do atacado = " << defende->hp << endl;
+
+	if(defende->hp <= 0){
+		cout << defende->nome << "eliminado!" << endl;
+		//RemoveLista(lista, chave);
+		return 1;
+	}
+	return 0;
+
 }
 
 //metodo para escolha do move a ser jogado
@@ -199,27 +276,29 @@ void ImprimeMoves(TipoPokemon *pokemon, TipoMove *escolhido){
 	*escolhido = pokemon->moves[n_escolhido-1];
 }
 
-TipoPokemon comeca(TipoPokemon pokemon1, TipoPokemon pokemon2){
+TipoLista comeca(TipoLista p1, TipoLista p2){
+
+	//se for o primeiro turno
 	//determina qual joga primeiro
-	if(pokemon1.speed > pokemon2.speed){
+	if(p1.Primeiro->pokemon.speed > p2.Primeiro->pokemon.speed){
 		//pokemon1 comeca
 		cout << endl;
-		cout << "speed do " << pokemon1.nome <<" maior, ele comeca" << endl;
-		return pokemon1;
-		
+		cout << "speed do " << p1.Primeiro->pokemon.nome <<" maior, ele comeca" << endl;
+		return p1;
+	
 	} else
 	{
 		//pokemon2 comeca
 		cout << endl;
-		cout << "speed do " << pokemon2.nome <<" maior, ele comeca" << endl;
-		return pokemon2;
+		cout << "speed do " << p2.Primeiro->pokemon.nome <<" maior, ele comeca" << endl;
+		return p2;
 	}
 }
 
 int main(int argc, char** argv)
 {
 
-	cout << "Inicializando moves :) " << endl << endl; 
+//	cout << "Inicializando moves :) " << endl << endl; 
 	TipoMove flamethrower, fire_blast, fly, earthquake, quick_attack, thunderbolt, thunder, skull_bash, ice_beam, hydro_pump, aurora_beam, blizzard; 
 	
 	InicializaMove(&flamethrower, "Flamethrower", 1, 'e', 95); 
@@ -239,7 +318,7 @@ int main(int argc, char** argv)
 	InicializaMove(&blizzard, "Blizzard", 12, 'e', 120);
 
 
-	cout << "Inicializando pokemons :) " << endl << endl; 	
+//	cout << "Inicializando pokemons :) " << endl << endl; 	
 	
 	TipoPokemon pikachu, charizard, dragonite, vaporeon;
 
@@ -252,13 +331,10 @@ int main(int argc, char** argv)
 
 	InicializaPokemon(&vaporeon, 4, "Vaporeon", 464, 251, 350, 240, 317, 251, hydro_pump, aurora_beam, quick_attack, blizzard); 
 	
-	ImprimePokemon(&charizard);
-	ImprimePokemon(&pikachu);
-
 	TipoLista player1, player2;
 
-	InicializaLista(&player1);
-	InicializaLista(&player2);
+	InicializaLista(&player1, 1);
+	InicializaLista(&player2, 2);
 	
 	InsereLista(&player1, dragonite);	
 	InsereLista(&player1, charizard);	
@@ -274,33 +350,40 @@ int main(int argc, char** argv)
 	TipoPokemon pokemon2 = PrimeiroPokemon(&player2);
 	cout << "primeiro do player2: " << pokemon2.nome << endl;	
 
-	TipoPokemon primeiro = comeca(pokemon1, pokemon2);
+	//TipoPokemon pokemonAtual = comeca(pokemon1, pokemon2);
+	
+	TipoLista jogadorAtual = comeca(player1, player2);
 
-	/*
+	TipoLista proxJogador;
 
-	//determina qual joga primeiro
-	if(pokemon1.speed > pokemon2.speed){
-		//pokemon1 comeca
-		cout << endl;
-		cout << "speed do pokemon 1 maior, ele comeca" << endl;
+*/
+
+	bool acabou = false;
+
+	while(!acabou){
+		//proximo jogador
+		if(jogadorAtual.player == player1.player)
+			proxJogador = player2;
+		else
+			proxJogador = player1;
+
+		TipoMove escolhido;	
+
+		ImprimeMoves(&jogadorAtual.Primeiro->pokemon, &escolhido);
 		
-	} else
-	{
-		//pokemon2 comeca
+		int eliminado = Ataque(&jogadorAtual.Primeiro->pokemon, &proxJogador.Primeiro->pokemon, &escolhido);		
+
+		if(eliminado){
+			RemoveLista(&proxJogador, proxJogador.Primeiro->pokemon.id); 		
+		}
+
 		cout << endl;
-		cout << "speed do pokemon 2 maior, ele comeca" << endl;
+
+		ImprimeLista(&jogadorAtual);
+		cout << endl;
+		ImprimeLista(&proxJogador);
+
 	}
-
-	*/
-	
-	TipoMove escolhido;	
-
-	ImprimeMoves(&primeiro, &escolhido);
-	
-	//Ataque(&charizard, &pikachu, &escolhido);	
-	Ataque(&pokemon1, &pokemon2, &escolhido);	
-
-	cout << endl;
 	
 	return 0;
 }
