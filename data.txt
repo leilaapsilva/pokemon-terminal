@@ -151,6 +151,23 @@ int static RemoveListaPosicao(TipoLista *L, TipoApontador P) {
 	free(P);
 	
 	return SEMERRO;
+}
+
+void ImprimeLista(TipoLista *L) {
+	
+	TipoApontador P = L->Primeiro;
+
+	int i = 0;
+	while(P != NULL) {
+	//	if (P->prox != NULL) //se nao for o ultimo, aponta para o proximo
+			printf("\n\nChave = %d \nnome = %s \nforca = %d \napetite =%d \nvelocidade = %d \ninteligencia = %d \nmagia = %d\n ----------------------------\n\n\n"
+				, P->poke.Chave, P->poke.nome, P->poke.forca, P->poke.apetite, P->poke.velocidade,
+				 P->poke.inteligencia, P->poke.magia);
+	//	else //se for o ultimo, apenas imprime
+	//		printf("%d: Chave=%d, Proximo=NULO\n", i, P->poke.Chave);
+		P = P->prox;
+		i++;
+	}
 	
 }
 		
