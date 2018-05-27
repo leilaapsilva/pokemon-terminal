@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <string>
 
+#include "pokedexascii.h"
+
 using namespace std;
 
 typedef int TipoChave;
@@ -369,6 +371,8 @@ int main(int argc, char** argv)
 	TipoLista jogadorAtual = comeca(player1, player2);
 	TipoLista proxJogador, aux;
 	
+	print_pokemon(6); //charizard (?)
+
 
 	bool comeco = true;
 	bool acabou = false;
