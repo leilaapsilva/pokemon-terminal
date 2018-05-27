@@ -170,4 +170,13 @@ void ImprimeLista(TipoLista *L) {
 	}
 	
 }
+
+COR DE FUNDO Estilo Game boy:
+
+
+código HTML: 	#C3CFA1
+código RGB: 	R: 195 G: 207 B: 161
+HSV: 	75.65° 22.22% 81.18%
+
+
 		
