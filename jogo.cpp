@@ -418,26 +418,36 @@ int main(int argc, char** argv)
 		TipoLista aux2;
 
 		if(eliminado){
-			//RemoveLista(&proxJogador, proxJogador.Primeiro->pokemon.id); 		
-			aux2 = proxJogador;
-			proxJogador.Ultimo = aux2.Primeiro;
-			proxJogador.Primeiro = proxJogador.Primeiro->prox;
-			count++;
-			cout << count;
+			RemoveLista(&proxJogador, proxJogador.Primeiro->pokemon.id); 		
+			//aux2 = proxJogador;
+			//proxJogador.Ultimo = aux2.Primeiro;
+			//proxJogador.Primeiro = proxJogador.Primeiro->prox;
+			//count++;
+			//cout << count;
 		}
 
 		cout << endl;
 
-		ImprimeLista(&jogadorAtual);
-		cout << endl;
-		ImprimeLista(&proxJogador);
-		cout << endl;
+	//	ImprimeLista(&jogadorAtual);
+	//	cout << endl;
+	//	ImprimeLista(&proxJogador);
+	//	cout << endl;
+
+		if(ListaVazia(&proxJogador)){
+			cout << "acabou!!!111" << endl;
+			acabou = true;
+		}
 
 		aux = jogadorAtual;
 		jogadorAtual = proxJogador;
 		proxJogador = aux;
+		
+		
+	
 		cout << "--------------------------------------------------------------" << endl;
-	}
+	
+	
+}
 
 	
 	return 0;
