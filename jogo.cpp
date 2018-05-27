@@ -95,7 +95,7 @@ TipoApontador PesquisaLista(TipoLista *L, TipoChave C) {
 	
 	P = L->Primeiro;
 	while(P != NULL) {
-		//printf("Pesquisa passando por %d\n", P->poke.Chave);
+		printf("Pesquisa passando por %d\n", P->pokemon.id);
 		if (P->pokemon.id == C)
 			return P;
 		P = P->prox;
@@ -107,12 +107,16 @@ TipoApontador PesquisaLista(TipoLista *L, TipoChave C) {
 }
 
 int static RemoveListaPosicao(TipoLista *L, TipoApontador P) {
+	cout << "entrou no remove por posiçao" << endl;
 
-	if (P->pokemon.id == -1)
+	if (P->pokemon.id == -1){
+	cout << "posicao invalida" << endl;
 		return -1;
+	}
 
 	// unico elemento na lista
 	if (P == L->Primeiro && L->Primeiro == L->Ultimo) {
+	cout << "unico elemento" << endl;
 		L->Primeiro = NULL;
 		L->Ultimo = NULL;
 		free(P);
@@ -121,12 +125,14 @@ int static RemoveListaPosicao(TipoLista *L, TipoApontador P) {
 	
 	// Remove do inicio
 	if (P == L->Primeiro) {
+	cout << "primeiro" << endl;
 		L->Primeiro = L->Primeiro->prox;
 		free(P);
 		return 0;
 	}
 	
 	// Remove no meio da lista
+	cout << "remove no meio da lista" << endl;
 	TipoApontador aux = L->Primeiro;
 	while(aux->prox != NULL && aux->prox != P) {
 		aux = aux->prox;
@@ -157,16 +163,22 @@ void ImprimeLista(TipoLista *L) {
 	TipoApontador P = L->Primeiro;
 
 	int i = 0;
-	while(P != NULL) {
-		if (P->prox != NULL){ //se nao for o ultimo, aponta para o proximo
+	//while(P != NULL) {
+	//	if (P->prox != NULL){ //se nao for o ultimo, aponta para o proximo
 		cout << L->Primeiro->pokemon.nome << endl;
 		cout << L->Primeiro->prox->pokemon.nome << endl;
-		}else{ //se for o ultimo, apenas imprime
+		cout << L->Primeiro->prox->prox->pokemon.nome << endl;
+		//cout << L->Primeiro->prox->prox->pokemon.nome << endl;
+
+	//	}else{ //se for o ultimo, apenas imprime
 					
-		}
+	//	}
 		P = P->prox;
 		i++;
-	}
+
+		cout << endl;
+		cout << endl;
+	//}
 	
 }
 
@@ -255,7 +267,7 @@ int Ataque(TipoPokemon *ataca, TipoPokemon *defende, TipoMove *move){
 	cout << "hp do atacado = " << defende->hp << endl;
 
 	if(defende->hp <= 0){
-		cout << defende->nome << "eliminado!" << endl;
+		cout << defende->nome << " eliminado!" << endl;
 		//RemoveLista(lista, chave);
 		return 1;
 	}
@@ -335,12 +347,14 @@ int main(int argc, char** argv)
 
 	InicializaLista(&player1, 1);
 	InicializaLista(&player2, 2);
-	
+
+	InsereLista(&player1, charizard);
 	InsereLista(&player1, dragonite);	
-	InsereLista(&player1, charizard);	
+	InsereLista(&player1, pikachu);
 
 	InsereLista(&player2, vaporeon);	
 	InsereLista(&player2, pikachu);
+	InsereLista(&player2, dragonite);
 
 	//no começo do jogo, pega os primeiros da lista de cada jogador	
 	
@@ -353,28 +367,63 @@ int main(int argc, char** argv)
 	//TipoPokemon pokemonAtual = comeca(pokemon1, pokemon2);
 	
 	TipoLista jogadorAtual = comeca(player1, player2);
+	TipoLista proxJogador, aux;
+	
 
-	TipoLista proxJogador;
-
-*/
-
+	bool comeco = true;
 	bool acabou = false;
 
-	while(!acabou){
+	while(comeco){
 		//proximo jogador
-		if(jogadorAtual.player == player1.player)
+		if(jogadorAtual.player == player1.player){
 			proxJogador = player2;
-		else
+			
+		}
+		else{
 			proxJogador = player1;
+		}
 
 		TipoMove escolhido;	
 
 		ImprimeMoves(&jogadorAtual.Primeiro->pokemon, &escolhido);
 		
+		Ataque(&jogadorAtual.Primeiro->pokemon, &proxJogador.Primeiro->pokemon, &escolhido);		
+
+		cout << endl;
+
+		//ImprimeLista(&jogadorAtual);
+		//cout << endl;
+		//ImprimeLista(&proxJogador);
+		//cout << endl;
+		
+		//ImprimeLista(&aux);
+		//cout << endl;
+
+		aux = jogadorAtual;
+		jogadorAtual = proxJogador;
+		proxJogador = aux;
+
+		cout << "--------------------------------------------------------------" << endl;
+		
+		comeco = false;
+	}
+
+	while(!acabou){
+		TipoMove escolhido;	
+		int count = 0;	
+		ImprimeMoves(&jogadorAtual.Primeiro->pokemon, &escolhido);
+		
 		int eliminado = Ataque(&jogadorAtual.Primeiro->pokemon, &proxJogador.Primeiro->pokemon, &escolhido);		
 
+		TipoLista aux2;
+
 		if(eliminado){
-			RemoveLista(&proxJogador, proxJogador.Primeiro->pokemon.id); 		
+			//RemoveLista(&proxJogador, proxJogador.Primeiro->pokemon.id); 		
+			aux2 = proxJogador;
+			proxJogador.Ultimo = aux2.Primeiro;
+			proxJogador.Primeiro = proxJogador.Primeiro->prox;
+			count++;
+			cout << count;
 		}
 
 		cout << endl;
@@ -382,8 +431,14 @@ int main(int argc, char** argv)
 		ImprimeLista(&jogadorAtual);
 		cout << endl;
 		ImprimeLista(&proxJogador);
+		cout << endl;
 
+		aux = jogadorAtual;
+		jogadorAtual = proxJogador;
+		proxJogador = aux;
+		cout << "--------------------------------------------------------------" << endl;
 	}
+
 	
 	return 0;
 }
