@@ -55,6 +55,33 @@ Hydro Pump (POWER: 120) - SPECIAL
 Aurora Beam (POWER: 65) - SPECIAL
 Quick Atack - SEMPRE VAI PRIMEIRO (POWER: 40) - FÍSICO
 Blizzard (POWER: 120) - SPECIAL
+----------------------------------------------------------------------------------------------
+InicializaPokemon(&gyarados, 130, "Gyarados", 394, 383, 240, 282, 328, 287, ice_beam, blizzard, hydro_pump, surf)
+ICE BEAM: 95 - SPECIAL
+BLIZZARD: 120 - SPECIAL 
+HYDRO PUMP: 120 - SPECIAL
+SURF: 95 - SPECIAL 
+
+InicializaPokemon(&snorlax, 143, "Snorlax", 524, 350, 251, 251, 350, 174, body_slam,hyper_beam,take_down,mega_kick)
+BODY SLAM: 85 - FÍSICO
+HYPER BEAM: 150 - SPECIAL
+TAKE DOWN: 90 - FÍSICO
+MEGA KICK: 120 - FÍSICO
+
+InicializaPokemon(&mewtwo, 150, "Mewtwo", 416, 350, 447, 306, 306, 394, psychic,tri_attack, solar_beam,fire_blast)
+PSYCHIC: 90 - SPECIAL
+TRI ATTACK: 80 - SPECIAL
+SOLAR BEAM: 120 - SPECIAL
+FIRE BLAST: 120 - SPECIAL
+
+InicializaPokemon(&exeggutor, 103, "Exeggutor", 394, 317, 383, 295, 251, 229, stomp,egg_bomb, solar_beam,hyper_beam)
+STOMP: 65 - FISICO
+EGG BOMB: 100 - FISICO
+SOLAR BEAM: 120 - SPECIAL
+HYPER BEAM: 150 - SPECIAL
+
+
+
 
 
 	//moves ---- devem ser const para que possam ser usados no switch
