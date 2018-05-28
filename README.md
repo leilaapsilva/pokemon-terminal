@@ -1,5 +1,12 @@
 # Pokémon - Console Edition
 
+![Logo](https://imgur.com/kZ14IwF.png)
+
+![Charizard](https://imgur.com/rvGlkz5.png)
+
+![Gyarados](https://imgur.com/wcyqxcD.png)
+
+
 **Compilando** 
 
 No terminal, acessar a pasta com os arquivos do jogo e compilar utilizando o *g++*:
