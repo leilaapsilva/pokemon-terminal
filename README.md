@@ -45,6 +45,9 @@ Fonte: #000000 (preto)
 
 E a fonte do jogo pode ser baixada [aqui](http://www.fontspace.com/jackster-productions/pokemon-gb)
 
+Agradecimento especial ao Gustavo Cintrão que me auxiliou com as mecânicas do jogo :heart:
+
+
 --------------------------------------------------------------------------------------------------------------------------
 
 TO DO:
@@ -59,6 +62,6 @@ TO DO:
 
 - Adicionar novos pokémon e moves 
 
-
+--------------------------------------------------------------------------------------------------------------------------
 
 
