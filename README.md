@@ -1,11 +1,31 @@
-# poke
+# Pokémon - Console Edition
 
-Para debugar com gdb 
+**Compilando** 
 
-compilar normalmente, adicionando -g no final: `g++ jogo.c -o jogo -g`
+No terminal, acessar a pasta com os arquivos do jogo e compilar utilizando o *g++*:
 
-iniciar o gdb passando o executavel: `gdb ./jogo`
+`g++ jogo.cpp -o jogo`
 
-Para rodar: `run`
+Rodar o executável com: 
+
+`./jogo`
+
+
+
+
+
+**Debugando com GDB**  
+
+Compilar normalmente, adicionando -g no final:
+
+`g++ jogo.c -o jogo -g`
+
+iniciar o gdb passando o executavel: 
+
+`gdb ./jogo`
+
+Para rodar: 
+
+`run`
 
 O programa será executado e se houver alguma falha indicará onde.
