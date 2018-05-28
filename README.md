@@ -36,3 +36,29 @@ Para rodar:
 `run`
 
 O programa será executado e se houver alguma falha indicará onde.
+
+Para ficar com esse visual, foi alterado o perfil de cores do Ubuntu da seguinte forma:
+
+Fundo: #C3CFA1
+
+Fonte: #000000 (preto)
+
+E a fonte do jogo pode ser baixada [aqui](http://www.fontspace.com/jackster-productions/pokemon-gb)
+
+--------------------------------------------------------------------------------------------------------------------------
+
+TO DO:
+
+- Versão Windows
+
+- Modularizar em arquivos separados
+
+- Fixar cor e fonte no executável
+
+- Melhorar fórmula de dano
+
+- Adicionar novos pokémon e moves 
+
+
+
+
