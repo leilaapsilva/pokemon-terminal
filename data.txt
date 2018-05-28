@@ -1,3 +1,5 @@
+Anotações de moves, pokemón e configurações utilizadas
+
 CHARIZARD
 
 HP : 360
@@ -81,129 +83,8 @@ SOLAR BEAM: 120 - SPECIAL
 HYPER BEAM: 150 - SPECIAL
 
 
-
-
-
-	//moves ---- devem ser const para que possam ser usados no switch
-	
-	//charizard 
-		
-	const int flamethrower = 1; //special
-	const int fire_blast = 2; //s
-	const int fly = 3; //fisico
-	const int earthquake = 4; //f
-	
-	//pikachu
-	
-	const int quick_attack = 5; //f
-	const int thunderbolt = 6; //s
-	const int thunder = 7; //s
-	const int skull_bash = 8; //f
-	
-	//dragonite
-	
-	const int ice_beam = 9; //s
-	
-	//vaporeon
-	
-	const int hydro_pump = 10; //s
-	const int aurora_beam = 11; //s
-	const int blizzard = 12; //s
-	
-	
-	
-	
-	
-//dano = (((((2*100)/5) + 2) * power_move * (fez_atk->sp_atk/rec_atk->sp_def))/50)+2;
-		
-//dano = ((42 * power_move * (fez_atk->sp_atk/rec_atk->sp_def)) / 50) + 2;
-
-//dano = ((42 * power_move * (fez_atk->atk/rec_atk->def)) / 50) + 2;
-
-fluxo
-
-> Menus
-> Batalha começa
-> CPU lança um pokémon aleatório
-> Pergunta qual pokémon tu quer usar do teu time
-> Teu Pokémon entra
-> Escolhe o ataque
-> Compara velocidades
-> Mais rápido ataca primeiro
-> Se matar, o que perdeu troca, se não, tu recebe o ataque
-> Se morrer, tu tem que trocar, mas quem atacou permanece
-> Pokémon que perde não pode mais ser usado, como se fosse um "destroy / remove"
-> Ganha quem eliminar os pokémons do outro
-		
-void RemoveLista(TipoLista *L, TipoChave C) {	
-	TipoApontador P = PesquisaLista(L, C);	
-	int r = RemoveListaPosicao(L, P);
-	if (r != POSICAOINVALIDA)
-		printf("Removeu elemento\n");
-	else
-		printf("Remocao deu ruim\n");
-}
-
-int static RemoveListaPosicao(TipoLista *L, TipoApontador P) {
-
-	if (P == NAO_ENCONTRADO)
-		return POSICAOINVALIDA;
-
-	// unico elemento na lista
-	if (P == L->Primeiro && L->Primeiro == L->Ultimo) {
-		L->Primeiro = NULL;
-		L->Ultimo = NULL;
-		free(P);
-		return SEMERRO;
-	}
-	
-	// Remove do inicio
-	if (P == L->Primeiro) {
-		L->Primeiro = L->Primeiro->prox;
-		free(P);
-		return SEMERRO;
-	}
-	
-	// Remove no meio da lista
-	TipoApontador aux = L->Primeiro;
-	while(aux->prox != NULL && aux->prox != P) {
-		aux = aux->prox;
-	}
-	
-	aux->prox = P->prox;
-	// se o removido estava no fim
-	if (aux->prox == NULL)
-		L->Ultimo = aux;
-	
-	free(P);
-	
-	return SEMERRO;
-}
-
-void ImprimeLista(TipoLista *L) {
-	
-	TipoApontador P = L->Primeiro;
-
-	int i = 0;
-	while(P != NULL) {
-	//	if (P->prox != NULL) //se nao for o ultimo, aponta para o proximo
-			printf("\n\nChave = %d \nnome = %s \nforca = %d \napetite =%d \nvelocidade = %d \ninteligencia = %d \nmagia = %d\n ----------------------------\n\n\n"
-				, P->poke.Chave, P->poke.nome, P->poke.forca, P->poke.apetite, P->poke.velocidade,
-				 P->poke.inteligencia, P->poke.magia);
-	//	else //se for o ultimo, apenas imprime
-	//		printf("%d: Chave=%d, Proximo=NULO\n", i, P->poke.Chave);
-		P = P->prox;
-		i++;
-	}
-	
-}
-
 COR DE FUNDO Estilo Game boy:
-
 
 código HTML: 	#C3CFA1
 código RGB: 	R: 195 G: 207 B: 161
 HSV: 	75.65° 22.22% 81.18%
-
-
-		
