@@ -1,3 +1,11 @@
+/*****************************************************************************
+*                     Pokemon simplificado em C++			     *
+* - Roda no proprio terminal						     *
+* - Os jogadores batalham até que um dos dois fique sem pokemon	             *
+*									     *
+* Leila Aparecida da Silva - abr/2018					     *
+******************************************************************************/
+
 #include <iostream>
 #include <string.h>
 #include <math.h>
@@ -18,8 +26,6 @@ using namespace std;
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
 #define NUM_MOVES 4 //quantidade de moves para 
-
-
 
 //TADs utilizados 
 
@@ -58,9 +64,7 @@ typedef struct TipoLista {
 
 ////////////////////////////////////////////////////////////////////////
 
-
-
-//------------------------------v
+//Inicializa um move (movimento)
 void InicializaMove(TipoMove *mov, string n, int id, char t, float pw){
 	mov->nome = n;
 	mov->id = id;
@@ -180,25 +184,17 @@ void ImprimeLista(TipoLista *L) {
 	TipoApontador P = L->Primeiro;
 
 	int i = 0;
-	//while(P != NULL) {
-	//	if (P->prox != NULL){ //se nao for o ultimo, aponta para o proximo
 		cout << L->Primeiro->pokemon.nome << endl;
 		cout << L->Primeiro->prox->pokemon.nome << endl;
 		cout << L->Primeiro->prox->prox->pokemon.nome << endl;
-		//cout << L->Primeiro->prox->prox->pokemon.nome << endl;
+		cout << L->Primeiro->prox->prox->prox->pokemon.nome << endl;
 
-	//	}else{ //se for o ultimo, apenas imprime
-					
-	//	}
 		P = P->prox;
 		i++;
 
 		cout << endl;
 		cout << endl;
-	//}
-	
 }
-
 
 TipoPokemon PrimeiroPokemon(TipoLista *L){
 	TipoPokemon ash;
@@ -233,7 +229,7 @@ void ImprimePokemon(TipoPokemon *poke){
 	
 	cout << endl;
 	cout << "****************************" << endl;
-	cout << "*  POKEMON:	" <<  poke->nome  << "	           *" << endl;
+	cout << "*  POKEMON:	" <<  poke->nome  << "	    " << endl;
 //	cout << "*  ID: " << poke->id << "                   *" << endl;
 //	cout << "*  ATK: " << poke->atk << "	           *" << endl;	
 //	cout << "*  DEF: " << poke->def << "	           *" << endl;
@@ -314,14 +310,14 @@ TipoLista comeca(TipoLista p1, TipoLista p2){
 	if(p1.Primeiro->pokemon.speed > p2.Primeiro->pokemon.speed){
 		//pokemon1 comeca
 		cout << endl;
-		cout << "speed do " << p1.Primeiro->pokemon.nome <<" maior, ele comeca" << endl;
+		//cout << "speed do " << p1.Primeiro->pokemon.nome <<" maior, ele comeca" << endl;
 		return p1;
 	
 	} else
 	{
 		//pokemon2 comeca
 		cout << endl;
-		cout << "speed do " << p2.Primeiro->pokemon.nome <<" maior, ele comeca" << endl;
+		//cout << "speed do " << p2.Primeiro->pokemon.nome <<" maior, ele comeca" << endl;
 		return p2;
 	}
 }
@@ -332,14 +328,7 @@ void menuInicial(){
 
 	std::cout << "\033c";
 
-	cout << endl;
-	cout << endl;
-	cout << endl;
-	cout << endl;
-	cout << endl;             
-	cout << endl;
-
-	//String color = ANSI_COLOR_GREEN;
+	cout << endl << endl << endl << endl << endl << endl << endl << endl << endl;
 
 	printf(ANSI_COLOR_RED "             	                                .::.                         \n"ANSI_COLOR_RESET); 
 	printf(ANSI_COLOR_RED "                                           .;:**'            AMC           	\n"ANSI_COLOR_RESET);
@@ -351,13 +340,10 @@ void menuInicial(){
 	printf("                'MMMb.dM! XM M'?M MMMMMX.`MMMMMMMM~ MM MMM XM `\" MX MMXXMM \n"ANSI_COLOR_RESET);
 	printf(ANSI_COLOR_GRAY "                 ~MMMMM~ XMM. .XM XM`\"MMMb.~*?**~ .MMX M t MMbooMM XMMMMMP \n"ANSI_COLOR_RESET);
 	printf(ANSI_COLOR_GRAY "                  ?MMM>  YMMMMMM! MM   `?MMRb.    `\"\"\"   !L\"MMMMM XM IMMM  \n"ANSI_COLOR_RESET);
-	printf(ANSI_COLOR_GRAY "                   MMMX   \"MMMM\"  MM       ~%:           !Mh.\"\"\" dMI IMMP  \n"ANSI_COLOR_RESET);
+	printf(ANSI_COLOR_GRAY "                   MMMX   \"MMMM\"  MM       ~*:           !Mh.\"\"\" dMI IMMP  \n"ANSI_COLOR_RESET);
 	printf(ANSI_COLOR_GRAY "                   'MMM.                                             IMX   \n"ANSI_COLOR_RESET);
 	printf(ANSI_COLOR_GRAY "                    ~M!M                                             IMP \n"ANSI_COLOR_RESET);
 	printf("                                                   Console edition :p ");  
-
-
-	//cout << "                                                                 " << endl;
 
 	cout << endl << endl << endl << endl;
 }
@@ -394,69 +380,66 @@ int main(int argc, char** argv)
 	
 //	cout << "Inicializando pokemons :) " << endl << endl; 	
 	
+	//declara pokemons (to do: adicionar mais pokemons)
 	TipoPokemon pikachu, charizard, dragonite, vaporeon, gyarados, snorlax, mewtwo, exeggutor;
-
-		
-	InicializaPokemon(&pikachu, 25, "Pikachu", 274, 229, 218, 196, 218, 306, quick_attack, thunderbolt, thunder, skull_bash);
-
-	InicializaPokemon(&charizard, 6, "Charizard", 360, 293, 348, 280, 295, 328, flamethrower, fire_blast, fly, earthquake);
-
-	InicializaPokemon(&dragonite, 149, "Dragonite", 386, 403, 328, 317, 328, 284, fly, earthquake, ice_beam, fire_blast);
-
-	InicializaPokemon(&vaporeon, 134, "Vaporeon", 464, 251, 350, 240, 317, 251, hydro_pump, aurora_beam, quick_attack, blizzard); 
-
-	InicializaPokemon(&gyarados, 130, "Gyarados", 394, 383, 240, 282, 328, 287, ice_beam, blizzard, hydro_pump, surf);
-
-	InicializaPokemon(&snorlax, 143, "Snorlax", 524, 350, 251, 251, 350, 174, body_slam,hyper_beam,take_down,mega_kick);
-
-	//InicializaPokemon(&mewtwo, 150, "Mewtwo", 416, 350, 447, 306, 306, 394, psychic,tri_attack, solar_beam,fire_blast);
-
-	InicializaPokemon(&exeggutor, 103, "Exeggutor", 394, 317, 383, 295, 251, 229, stomp,egg_bomb, solar_beam,hyper_beam);
-
 	
+	//inicializa pokemons	
+	InicializaPokemon(&pikachu, 25, "Pikachu", 274, 229, 218, 196, 218, 306, quick_attack, thunderbolt, thunder, skull_bash);
+	InicializaPokemon(&charizard, 6, "Charizard", 360, 293, 348, 280, 295, 328, flamethrower, fire_blast, fly, earthquake);
+	InicializaPokemon(&dragonite, 149, "Dragonite", 386, 403, 328, 317, 328, 284, fly, earthquake, ice_beam, fire_blast);
+	InicializaPokemon(&vaporeon, 134, "Vaporeon", 464, 251, 350, 240, 317, 251, hydro_pump, aurora_beam, quick_attack, blizzard); 
+	InicializaPokemon(&gyarados, 130, "Gyarados", 394, 383, 240, 282, 328, 287, ice_beam, blizzard, hydro_pump, surf);
+	InicializaPokemon(&snorlax, 143, "Snorlax", 524, 350, 251, 251, 350, 174, body_slam,hyper_beam,take_down,mega_kick);
+	InicializaPokemon(&mewtwo, 150, "Mewtwo", 416, 350, 447, 306, 306, 394, psychic,tri_attack, solar_beam,fire_blast);
+	InicializaPokemon(&exeggutor, 103, "Exeggutor", 394, 317, 383, 295, 251, 229, stomp,egg_bomb, solar_beam,hyper_beam);
+	
+	//declara listas de jogadores
 	TipoLista player1, player2;
 
+	//inicializa listas	
 	InicializaLista(&player1, 1);
 	InicializaLista(&player2, 2);
 
+	//insere pokemons na lista de cada jogador (to do: tornar isso aleatorio)
 	InsereLista(&player1, charizard);
 	InsereLista(&player1, dragonite);	
 	InsereLista(&player1, pikachu);
 	InsereLista(&player1, vaporeon);	
-	
 	InsereLista(&player2, gyarados);
 	InsereLista(&player2, snorlax);
-	//InsereLista(&player2, mewtwo);
+	InsereLista(&player2, mewtwo);
 	InsereLista(&player2, exeggutor);
-
 
 	//no começo do jogo, pega os primeiros da lista de cada jogador	
 
-	menuInicial();
+	menuInicial(); //exibe o menu inicial com o logo
 	cout << "                                                            Aceita o desafio?              " << endl;
+
+	cout << endl << endl << endl << endl << endl << endl << endl << endl ;
 
 	char entrada;
 	cin >> entrada;
 
-	std::cout << "\033c";
-	
-	
+	std::cout << "\033c"; //limpa a tela
+
+	//define qual jogador ira comecar 	
 	TipoLista jogadorAtual = comeca(player1, player2);
 	TipoLista proxJogador, aux;
 
 	bool comeco = true;
 	bool acabou = false;
 
+	//loop do primeiro turno
 	while(comeco){
-		//proximo jogador
+		//proximo jogador (troca o jogador atual pelo outro)
 		if(jogadorAtual.player == player1.player){
 			proxJogador = player2;
-			
 		}
 		else{
 			proxJogador = player1;
 		}
-
+	
+		//imprime listas de pokemon de cada jogador
 		cout << "Time 1: " << endl;
 		ImprimeLista(&jogadorAtual);
 		cout << endl;
@@ -470,11 +453,11 @@ int main(int argc, char** argv)
 		cin >> jogar;
 		std::cout << "\033c";
 		
-		//cout << "=========================================================================" << endl;
+		
 		cout << jogadorAtual.Primeiro->pokemon.nome << " atacando" << endl;
 
-		//imprime ascii
-		print_pokemon(jogadorAtual.Primeiro->pokemon.id);
+		
+		print_pokemon(jogadorAtual.Primeiro->pokemon.id); //imprime ascii
 		cout << "=========================================================================" << endl;
 
 		TipoMove escolhido;	
@@ -482,16 +465,14 @@ int main(int argc, char** argv)
 		cout << "Player1" << endl;
 		ImprimePokemon(&player1.Primeiro->pokemon);		
 
-		
-		cout << "Defendendo:" << endl;
+		cout << "Player2:" << endl;
 		ImprimePokemon(&player2.Primeiro->pokemon);		
-
 
 		ImprimeMoves(&jogadorAtual.Primeiro->pokemon, &escolhido);
 		
+		//realiza o ataque
 		Ataque(&jogadorAtual.Primeiro->pokemon, &proxJogador.Primeiro->pokemon, &escolhido);		
 		
-
 		cout << endl;
 
 		aux = jogadorAtual;
@@ -499,15 +480,14 @@ int main(int argc, char** argv)
 		proxJogador = aux;
 
 		cout << "--------------------------------------------------------------" << endl;
-		std::cout << "\033c";
+		std::cout << "\033c"; //limpa a tela
 		comeco = false;
 	}
 
+	//loop do jogo
 	while(!acabou){
-		TipoMove escolhido;	
-		int count = 0;	
+		TipoMove escolhido;		
 
-		//cout << "=========================================================================" << endl;
 		cout << jogadorAtual.Primeiro->pokemon.nome << " atacando" << endl;
 
 		print_pokemon(jogadorAtual.Primeiro->pokemon.id); //pikachu
@@ -516,7 +496,6 @@ int main(int argc, char** argv)
 		cout << "Player 1" << endl;
 		ImprimePokemon(&player1.Primeiro->pokemon);		
 
-		
 		cout << "Player 2:" << endl;
 		ImprimePokemon(&player2.Primeiro->pokemon);
 
@@ -532,11 +511,6 @@ int main(int argc, char** argv)
 
 		cout << endl;
 
-	//	ImprimeLista(&jogadorAtual);
-	//	cout << endl;
-	//	ImprimeLista(&proxJogador);
-	//	cout << endl;
-
 		if(ListaVazia(&proxJogador)){
 			cout << "acabou!!!111" << endl;
 			acabou = true;
@@ -546,15 +520,11 @@ int main(int argc, char** argv)
 		jogadorAtual = proxJogador;
 		proxJogador = aux;
 		
-		
-	
 		cout << "--------------------------------------------------------------" << endl;
 		//sleep(5);
 		std::cout << "\033c";
-	
-}
+	}
 
-	cout << "acabooooooooooooooou" << endl;
 	menuInicial();
 	cout << "Obrigada por jogar!!" << endl;
 	cout << "Pressione enter parar sair do jogo" << endl; 
