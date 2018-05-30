@@ -1,4 +1,4 @@
-Anotações de moves, pokemón e configurações utilizadas
+# Anotações de moves, pokemón e configurações utilizadas
 
 CHARIZARD
 
@@ -8,7 +8,6 @@ SP.ATK : 348
 DEF : 280
 SP.DEF : 295
 SPEED : 328
-
 MOVES
 
 Flamethrower (POWER: 95) - SPECIAL
@@ -17,6 +16,7 @@ Fly (POWER: 70) - FÍSICO
 Earthquake (POWER: 100) - FÍSICO 
 
 PIKACHU
+
 HP :274
 ATK : 229
 SP.ATK :218 
@@ -82,7 +82,7 @@ EGG BOMB: 100 - FISICO
 SOLAR BEAM: 120 - SPECIAL
 HYPER BEAM: 150 - SPECIAL
 
-
+---------------------------------------
 COR DE FUNDO Estilo Game boy:
 
 código HTML: 	#C3CFA1
