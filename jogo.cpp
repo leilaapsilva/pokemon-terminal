@@ -25,26 +25,26 @@ using namespace std;
 #define ANSI_COLOR_GREEN	"\e[0;32m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
-#define NUM_MOVES 4 //quantidade de moves para 
+#define NUM_MOVES 4 //quantidade de moves
 
-//TADs utilizados 
+//Estruturas de Dados utilizadas 
 
-typedef int TipoChave;
+typedef int TipoChave; //O tipo da chave pode ser alterado
 
 typedef struct TipoMove{
 	string nome; 
 	int id;
-	char tipo; //'e' para especial e 'f' para fisico 
+	char tipo; //'e' para ataque especial e 'f' para físico 
 	float power; //quanto poder o move possui para o ataque
 } TipoMove; 
 	
 typedef struct TipoPokemon{
-	TipoChave id; //chave - usada para impressao dos pokemon
+	TipoChave id; //chave - usada para impressão dos pokemon
 	string nome; //nome
 	float atk; //ataque
 	float def; //defesa
 	float hp; //vida
-	float speed; //velocidade (o maior ataca antes)
+	float speed; //velocidade (o pokémon que tiver speed maior ataca antes)
 	float sp_atk; //ataque especial
 	float sp_def; //defesa especial
 	TipoMove moves[NUM_MOVES]; //movimentos de ataque possiveis
@@ -54,7 +54,7 @@ typedef struct TipoNo *TipoApontador; //ponteiro para um nó
 
 typedef struct TipoNo {
 	TipoPokemon pokemon; //cada nó possui um pokemon
-	struct TipoNo *prox; //e aponta para o proximo no
+	struct TipoNo *prox; //e aponta para o proximo nó
 } TipoNo;
 
 typedef struct TipoLista { 
@@ -87,11 +87,11 @@ int ListaVazia(TipoLista *L) {
 		return 0;
 }
 
-void InsereLista(TipoLista *L, TipoPokemon poke) {
+void InsereLista(TipoLista *L, TipoPokemon poke) { //função para inserir na lista de jogo
 
 	TipoApontador P;
 	
-	P = (TipoApontador) malloc(sizeof(TipoNo));
+	P = (TipoApontador) malloc(sizeof(TipoNo)); //aloca memória
 	if (P == NULL) {
 		cout << "NAO FOI POSSIVEL INSERIR O ITEM: MEMORIA CHEIA " << endl;
 		return;
@@ -110,7 +110,7 @@ void InsereLista(TipoLista *L, TipoPokemon poke) {
 	//cout << "Pokemon inserido: " << poke.id << endl;
 }
 
-TipoApontador PesquisaLista(TipoLista *L, TipoChave C) {
+TipoApontador PesquisaLista(TipoLista *L, TipoChave C) { //caso seja necessário realizar uma busca na lista
 
 	TipoApontador P;
 	
@@ -179,7 +179,7 @@ void RemoveLista(TipoLista *L, TipoChave C) {
 		printf("Remocao deu ruim\n");
 }
 
-void ImprimeLista(TipoLista *L) {
+void ImprimeLista(TipoLista *L) { //Imprime os pokémon pertencentes à lista
 	
 	TipoApontador P = L->Primeiro;
 
@@ -196,7 +196,7 @@ void ImprimeLista(TipoLista *L) {
 		cout << endl;
 }
 
-TipoPokemon PrimeiroPokemon(TipoLista *L){
+TipoPokemon PrimeiroPokemon(TipoLista *L){ //retorna o primeiro pokémon da lista
 	TipoPokemon ash;
 	ash.id = -1;
 	
@@ -208,6 +208,7 @@ TipoPokemon PrimeiroPokemon(TipoLista *L){
 	return L->Primeiro->pokemon; 
 }
 
+// uma espécie de construtor do pokémon
 void InicializaPokemon(TipoPokemon *poke, int id, string nome, float vida, float ataque, float spAtk, float defesa, float spDef, float velocidade, TipoMove mov0, TipoMove mov1, TipoMove mov2, TipoMove mov3){		
 								
 				poke->id = id;
@@ -225,7 +226,7 @@ void InicializaPokemon(TipoPokemon *poke, int id, string nome, float vida, float
 																			
 }
 
-void ImprimePokemon(TipoPokemon *poke){
+void ImprimePokemon(TipoPokemon *poke){ //imprime informações na tela
 	
 	cout << endl;
 	cout << "****************************" << endl;
@@ -303,7 +304,7 @@ void ImprimeMoves(TipoPokemon *pokemon, TipoMove *escolhido){
 	*escolhido = pokemon->moves[n_escolhido-1];
 }
 
-TipoLista comeca(TipoLista p1, TipoLista p2){
+TipoLista comeca(TipoLista p1, TipoLista p2){ //começa o jogo
 
 	//se for o primeiro turno
 	//determina qual joga primeiro
@@ -329,6 +330,8 @@ void menuInicial(){
 	std::cout << "\033c";
 
 	cout << endl << endl << endl << endl << endl << endl << endl << endl << endl;
+	
+	//imprime o logo em ASCII
 
 	printf(ANSI_COLOR_RED "             	                                .::.                         \n"ANSI_COLOR_RESET); 
 	printf(ANSI_COLOR_RED "                                           .;:**'            AMC           	\n"ANSI_COLOR_RESET);
@@ -354,6 +357,8 @@ int main(int argc, char** argv)
 
 //	cout << "Inicializando moves :) " << endl << endl; 
 	TipoMove flamethrower, fire_blast, fly, earthquake, quick_attack, thunderbolt, thunder, skull_bash, ice_beam, hydro_pump, aurora_beam, blizzard, surf, body_slam, hyper_beam, take_down, mega_kick, psychic, tri_attack, solar_beam, stomp, egg_bomb; 
+	
+	//inicialia os moves (movimentos) utilizados no jogo (poderia ser salvo em um arquivo texto para facilitar a edição)
 	
 	InicializaMove(&flamethrower, "Flamethrower", 1, 'e', 95); 
 	InicializaMove(&fire_blast, "Fire Blast", 2, 'e', 120);
